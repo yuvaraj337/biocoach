@@ -1,0 +1,2 @@
+@extends('layouts.app')
+@section('content')<section class="section"><div class="container"><p class="eyebrow">CERTIFICATE VERIFICATION</p><h1>Certificate verified</h1><article class="resource" style="max-width:680px"><div class="resource-icon">✓</div><div><h3>{{ $certificate->user->name }}</h3><p>Completed: {{ $certificate->course->title }}</p><p>Certificate ID: {{ $certificate->certificate_number }}</p><p>Issued: {{ $certificate->issued_at->format('d F Y') }}</p></div></article></div></section>@endsection
