@@ -35,7 +35,7 @@
     @forelse($courses as $index => $course)
       <article class="course-card">
         <div class="course-image">
-          <img src="{{ $course->thumbnail ? asset('storage/'.$course->thumbnail) : asset('images/'.($courseVisuals[$index % count($courseVisuals)])) }}" alt="{{ $course->title }}">
+          <img src="{{ $course->thumbnail ? $course->thumbnail_url : asset('images/'.($courseVisuals[$index % count($courseVisuals)])) }}" alt="{{ $course->title }}">
           @if($index < 2)<span class="course-ribbon">{{ $courseLabels[$index] }}</span>@endif
         </div>
         <div class="course-body">

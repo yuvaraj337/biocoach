@@ -76,11 +76,26 @@ class Course extends Model
     public function getThumbnailUrlAttribute(): string
     {
         if (!empty($this->thumbnail)) {
-            if (str_starts_with($this->thumbnail, 'http://') || str_starts_with($this->thumbnail, 'https://')) {
-                return $this->thumbnail;
+            $thumb = trim($this->thumbnail);
+            if (str_starts_with($thumb, 'http://') || str_starts_with($thumb, 'https://')) {
+                return $thumb;
             }
-            return asset($this->thumbnail);
+            $cleanPath = ltrim($thumb, '/');
+            if (str_starts_with($cleanPath, 'storage/')) {
+                return asset($cleanPath);
+            }
+            if (file_exists(public_path($cleanPath))) {
+                return asset($cleanPath);
+            }
+            if (file_exists(public_path('storage/' . $cleanPath))) {
+                return asset('storage/' . $cleanPath);
+            }
+            return asset($cleanPath);
         }
-        return asset('images/courses/neet-biology.jpg');
+
+        if (file_exists(public_path('images/courses/neet-biology.jpg'))) {
+            return asset('images/courses/neet-biology.jpg');
+        }
+        return asset('images/course-dna.svg');
     }
 }
